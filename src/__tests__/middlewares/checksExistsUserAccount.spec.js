@@ -42,7 +42,7 @@ describe('checksExistsUserAccount', () => {
     mockNext = jest.fn();
   });
 
-  it('should be able to find user by username in header and pass it to request.user', () => {
+  it('deve ser capaz de encontrar o usuário por nome de usuário no cabeçalho e passá-lo para request.user', () => {
     users.push({
       id: v4(),
       name: 'Atlas',
@@ -70,7 +70,7 @@ describe('checksExistsUserAccount', () => {
 
   });
 
-  it('should not be able to find a non existing user by username in header', () => {
+  it('não deve ser capaz de encontrar um usuário inexistente pelo nome de usuário no cabeçalho', () => {
     const mockRequest = request({ headers: { username: 'non-existing-username' } });
     const mockResponse = response();
 

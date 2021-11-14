@@ -42,7 +42,7 @@ describe('checksCreateTodosUserAvailability', () => {
     mockNext = jest.fn();
   });
 
-  it('should be able to let user create a new todo when is in free plan and have less than ten todos', () => {
+  it('deve ser capaz de permitir que o usuário crie uma nova tarefa quando estiver no plano livre e tiver menos de dez tarefas', () => {
     const mockRequest = request({
       user: {
         id: v4(),
@@ -60,7 +60,7 @@ describe('checksCreateTodosUserAvailability', () => {
     expect(mockNext).toBeCalled();
   });
 
-  it('should not be able to let user create a new todo when is not Pro and already have ten todos', () => {
+  it('não deve ser capaz de permitir que o usuário crie uma nova tarefa quando não for Pro e já tiver dez tarefas', () => {
     const mockRequest = request({
       user: {
         id: v4(),
@@ -84,7 +84,7 @@ describe('checksCreateTodosUserAvailability', () => {
     expect(mockResponse.status).toBeCalledWith(403);
   });
 
-  it('should be able to let user create infinite new todos when is in Pro plan', () => {
+  it('deve ser capaz de permitir que o usuário crie infinitas novas tarefas quando estiver no plano Pro', () => {
     const mockRequest = request({
       user: {
         id: v4(),

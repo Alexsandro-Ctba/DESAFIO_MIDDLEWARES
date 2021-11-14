@@ -9,56 +9,73 @@ app.use(cors());
 const users = [];
 
 function checksExistsUserAccount(request, response, next) {
-  // Complete aqui
-  const { username } = request.headers;
-  const validaUsername = users.find((user) => user.username === username)
-  if(!validaUsername){
-    return response.status(404).json({error:"usuário não existe"})
-  }
-  request.user  = validaUsername
+    const { username } = request.headers;
+    const userAlreadyExists = users.find((user) => user.username === username)
 
-  return next();
+    if(!userAlreadyExists){
+      return response.status(404).json({error:"usuário não existe!"})
+    }
+
+    request.user = userAlreadyExists;
+
+    next();
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
-  const { user } = request;
- var todo = user.todos.length + 1
-  if(todo >= 10 && user.pro == false){
-    return response.status(403).json({error:"Limite alcançado no plano gratis!"})
+  const { user } = request;  
+  const plano = user.pro 
+
+  const countTodo = user.todos.length;
+
+  if(plano === false && countTodo >= 10) {
+    return response.status(403).json({error:"usuário já possui 10 todos cadastrados! ative o plano Pro!"})
+  }else{
+    next()
   }
 
- return next()
+  if(!plano === true){
+    return response.status(403).json({error:"Ative o plano pro!"})
+  }
+  next();
 }
 
 function checksTodoExists (request, response, next) {
-  const { username } = request.headers;
-  const { id } = request.params;
- const validateUser =  users.find((user)=> user.username === username)
- if(!validateUser){
-   return response.status(404).json({error:"Usuário não existe"})
- }
- if(!validate(id)){
-   return response.status()
- }
- const validateID = validateUser.todos.find((index) => index.id === id)
-if(!validateID){
-  return response.status(400).json({error:"ID não existe"})
-}
- request.username = validateUser;
- request.todo = validateID;
- return next();
+   const { username } = request.headers
+   const { id } = request.params;
+
+   const userAlreadyExists = users.find((user) => user.username === username)
+   if(!userAlreadyExists){
+     return response.status(404).json({error:"usuário não existe!"})
+   }
+
+   if(!validate(id)){
+     return response.status(400).json({error:"id inválido!"})
+   }
+
+   const searchId = userAlreadyExists.todos.find((todo) => todo.id === id)
+   if(!searchId){
+    return response.status(404).json({error:"usuário não existe!"})
+   }
+
+   request.user =userAlreadyExists;
+   request.todo = searchId;
+
+   next();
+
+
 }
 
 function findUserById(request, response, next) {
-  // Complete aqui
-  const { id } = request.params;
-  const ValidateUser = users.find((user)=> user.id === id)
-  if(!ValidateUser){
-    return response.status(404).json({error:"usuario não existe"})
-  }
-  request.user = ValidateUser;
-  return next();
+    const { id } = request.params;
+
+    const userAlreadyExists = users.find((user) => user.id === id)
+
+    if(!userAlreadyExists){
+      return response.status(404).json({error:"usuário não existe!"})
+    }
+
+      request.user = userAlreadyExists;
+    next()
 }
 
 app.post('/users', (request, response) => {

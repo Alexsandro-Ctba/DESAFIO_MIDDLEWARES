@@ -42,7 +42,7 @@ describe('checksTodoExists', () => {
     mockNext = jest.fn();
   });
 
-  it('should be able to put user and todo in request when both exits', () => {
+  it('deve ser capaz de colocar o usuário e a tarefa na solicitação quando ambas as saídas', () => {
     const todo = {
       id: v4(),
       title: 'bip bip',
@@ -88,7 +88,7 @@ describe('checksTodoExists', () => {
     expect(mockNext).toBeCalled();
   });
 
-  it('should not be able to put user and todo in request when user does not exists', () => {
+  it('não deve ser capaz de colocar o usuário e a tarefa na solicitação quando o usuário não existe', () => {
     const todo = {
       id: v4(),
       title: 'bip bip',
@@ -120,7 +120,7 @@ describe('checksTodoExists', () => {
     expect(mockNext).not.toBeCalled();
   });
 
-  it('should not be able to put user and todo in request when todo id is not uuid', () => {
+  it('não deve ser capaz de colocar o usuário e a tarefa na solicitação quando a ID da tarefa não for uuid', () => {
     users.push({
       id: v4(),
       name: 'Atlas',
@@ -152,7 +152,7 @@ describe('checksTodoExists', () => {
     expect(mockNext).not.toBeCalled();
   });
 
-  it('should not be able to put user and todo in request when todo does not exists', () => {
+  it('não deve ser capaz de colocar o usuário e a tarefa na solicitação quando a tarefa não existe', () => {
     users.push({
       id: v4(),
       name: 'Atlas',

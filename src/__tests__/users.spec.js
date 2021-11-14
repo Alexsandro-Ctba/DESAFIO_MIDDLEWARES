@@ -4,7 +4,7 @@ const { validate } = require('uuid');
 const { app } = require('../');
 
 describe('Users', () => {
-  it('should be able to create a new user', async () => {
+  it('deve ser capaz de criar um novo usuário', async () => {
     const response = await request(app)
       .post('/users')
       .send({
@@ -24,7 +24,7 @@ describe('Users', () => {
     expect(response.status).toBe(201);
   });
 
-  it('should not be able to create a new user when username already exists', async () => {
+  it('não deve ser capaz de criar um novo usuário quando o nome de usuário já existe', async () => {
     await request(app)
       .post('/users')
       .send({
@@ -43,7 +43,7 @@ describe('Users', () => {
     expect(response.body.error).toBeTruthy();
   });
 
-  it('should be able to show user data', async () => {
+  it('deve ser capaz de mostrar os dados do usuário', async () => {
     const { body: userData } = await request(app)
       .post('/users')
       .send({
